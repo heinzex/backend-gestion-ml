@@ -2,12 +2,17 @@ package com.main.mainserver.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "token-service")
-@RequestMapping("/api/token")
+import com.main.mainserver.models.Seller;
+
+@FeignClient(name = "token-service", path = "/private/token")
 public interface TokenFeign {
 	
-	@GetMapping
-	public String getToken();
+	@GetMapping("/{seller_id}")
+	public String getToken(@PathVariable String seller_id);
+	
+	@GetMapping("/user")
+	public Object newUser(@RequestParam String code);
 }

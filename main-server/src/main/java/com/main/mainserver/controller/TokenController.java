@@ -1,4 +1,4 @@
-/*package com.main.mainserver.controller;
+package com.main.mainserver.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,13 +18,13 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 @RestController
 @RequestMapping("/api")
-public class MainController {
+public class TokenController {
 
 	@Autowired
 	private TokenFeign tokenFeign;
 
 	@CircuitBreaker(name = "microservice", fallbackMethod = "exceptionFallback")
-	@GetMapping("/userAuth")
+	@GetMapping("21")
 	public ResponseEntity<Object> newUser(@RequestParam String code) {
 		Object seller = tokenFeign.newUser(code);
 		return ResponseEntity.ok(seller);
@@ -36,11 +36,11 @@ public class MainController {
 		String token = tokenFeign.getToken(seller);
 		return ResponseEntity.ok(token);
 	}
-
+	
 	private ResponseEntity<Map> exceptionFallback(RuntimeException ex) {
 		Map<String, String> exception = new HashMap<>();		
 		exception.put("error", "hubo un error");
 		exception.put("message", ex.getMessage());
 		return new ResponseEntity<>(exception, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-}*/
+}

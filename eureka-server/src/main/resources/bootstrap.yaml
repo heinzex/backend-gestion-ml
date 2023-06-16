@@ -1,5 +1,11 @@
 spring:
   application:
     name: eureka-server
-  config:
-    import: configserver:http://localhost:8888
+server:
+  port: 8761
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      default-zone: http://eureka-server:8761/eureka/

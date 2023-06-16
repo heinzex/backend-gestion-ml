@@ -1,5 +1,27 @@
+server:
+  port: 8080
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+    instance: localhost
+
 spring:
   application:
     name: gateway-server
-  config:
-    import: configserver:http://localhost:8081
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+       - id: main-server
+         uri: lb://main-server
+         predicates:
+           - Path=/api/**
+       - id: token-service
+         uri: lb://token-service
+         predicates:
+           - Path=/private/token/**
