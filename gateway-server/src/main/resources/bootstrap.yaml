@@ -1,17 +1,18 @@
 server:
   port: 8080
-eureka:
-  client:
-    fetch-registry: true
-    register-with-eureka: true
-    service-url:
-      default-zone: http://localhost:8761/eureka/
-    instance: localhost
-
 spring:
   application:
     name: gateway-server
   cloud:
+    kubernetes:
+      config:
+        name: gateway-server # Nombre de tu servicio
+        namespace: default # El namespace en el que tu servicio se está ejecutando
+      discovery:
+        all-namespaces: true # Si los servicios pueden descubrirse entre diferentes namespaces
+    loadbalancer:
+      ribbon:
+        enabled: false
     gateway:
       discovery:
         locator:

@@ -1,3 +1,5 @@
+server:
+  port: 8001
 spring:
   application:
     name: token-service
@@ -10,5 +12,16 @@ spring:
     username: ${DATABASE_USER}
     password: ${DATABASE_PASS}
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-server:
-  port: 8082
+  cloud:
+    kubernetes:
+      config:
+        name: token-service # Nombre de tu servicio
+        namespace: default # El namespace en el que tu servicio se está ejecutando
+      discovery:
+        all-namespaces: true # Si los servicios pueden descubrirse entre diferentes namespaces
+    loadbalancer:
+      ribbon:
+        enabled: false
+
+
+  
